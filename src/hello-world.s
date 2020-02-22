@@ -44,8 +44,11 @@ loop:
   lda #","
   jsr print_char
 
-  lda #" "
-  jsr print_char
+  lda #%00010100 ; Shift cursor to the right once
+  jsr lcd_send
+
+  lda #%11000011 ; Sets DDRAM address so that the cursor is positioned at the head of the second line. 
+  jsr lcd_send
 
   lda #"w"
   jsr print_char
