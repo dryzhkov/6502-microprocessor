@@ -10,6 +10,9 @@ RS = %00100000
   .org $8000
 
 reset:
+  ldx #$ff       ; Initialize stack pointer
+  txs
+
   lda #%11111111 ; Set all pins on port B to output
   sta DDRB
 
@@ -23,6 +26,9 @@ reset:
   jsr lcd_send
 
   lda #%00000110 ; Increment and shift cursor; don't shift display
+  jsr lcd_send
+
+  lda #%00000001 ; Clear display
   jsr lcd_send
 
 loop:
